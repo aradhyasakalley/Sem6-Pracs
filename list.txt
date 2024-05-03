@@ -1,0 +1,11 @@
+playfair
+vignere
+vernam
+columnar
+rsa
+diffie-hellman
+md5
+rsa signature
+Information gathering
+Wireshark
+SQL injection

@@ -25,7 +25,7 @@ def vignere_cipher(plain_text,key):
 
 def vignere_decipher(plain_text,key):
     deciphered_text = ''
-    for char1,char2 in zip(plain_text,key) :
+    for char1,char2 in zip(plain_text,key):
         mapped_value1 = mapping[char1]
         mapped_value2 = mapping[char2]
         deciphered_value = (mapped_value1 - mapped_value2) % 26
@@ -33,7 +33,9 @@ def vignere_decipher(plain_text,key):
     return deciphered_text
         
 
-plain_text = 'ARADHYASAKALLEY'
+plain_text = 'ARADHYA SAKALLEY'
+plain_text = plain_text.replace(' ','')
+print(plain_text)
 key = 'BEST'
 key = key_padding(plain_text,key)
 print(key)

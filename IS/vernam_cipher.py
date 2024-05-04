@@ -22,6 +22,8 @@ def vernam_cipher(plain_text,key):
     return ciphered_text 
 
 plain_text = 'HELLO'
+plain_text = plain_text.replace(' ','')
+print(plain_text)
 key = 'KEY'
 key = key_padding(plain_text,key)
 print(key)

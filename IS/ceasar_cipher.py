@@ -29,6 +29,8 @@ def ceasar_decipher(text,shift):
     return deciphered_text
 
 plain_text = 'aradhya'
+plain_text = plain_text.replace(' ','')
+print(plain_text)
 ciphered_text = ceasar_cipher(plain_text,3)
 print(ciphered_text)
 deciphered_text = ceasar_decipher(ciphered_text,3)

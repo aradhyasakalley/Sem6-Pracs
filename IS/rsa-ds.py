@@ -1,48 +1,57 @@
+import math 
 import hashlib
 
-def rsa_encryption(message_hash):
-    return (message_hash ** e) % n
+# Note that in RSA the encryption is done using the public key (e) and decrytion using the private key (d) but in RSA DS its the opposite.
 
-def rsa_decryption(signature):
-    return (signature ** d) % n
+def private_key(e,phi):
+    d = 2
+    while d < phi:
+        if (d*e)%phi == 1:
+            break
+        else:
+            d += 1
+    return d
+def public_keyy(phi):
+    e = 2
+    while e < phi:
+        if math.gcd(e,phi) == 1:
+            break
+        else:
+            e += 1
+    return e
 
-def md_generator(message):
-    return int(hashlib.sha1(message.encode()).hexdigest(), 16)
+def rsa_encrypt(message,e,n):
+    return pow(message,e)%n
+def rsa_decrypt(message,d,n):
+    return pow(message,d)%n
 
+def sha1_hash(message):
+    message = str(message)
+    return int(hashlib.sha1(message.encode()).hexdigest()[:5],16)
 
-p = 1013
-q = 1019
-n = p * q
-phi = (p - 1) * (q - 1)
-e = 13
+# make sure to pick a large prime number like 1013,1019 
+p,q = 1013,1019
+message = 16
+n = p*q
+phi = (p-1)*(q-1)
+e = public_keyy(phi)
+d = private_key(e,phi)
 
-# Calculate d using modular multiplicative inverse of e mod phi
-def mod_inverse(a, m):
-    m0, x0, x1 = m, 0, 1
-    while a > 1:
-        q = a // m
-        m, a = a % m, m
-        x0, x1 = x1 - q * x0, x0
-    return x1 if x1 >= 0 else x1 + m0
+md1 = sha1_hash(message)
+print(md1)
+dig_sign = rsa_encrypt(md1,d,n)
+print(dig_sign)
 
-d = mod_inverse(e, phi)
+# tampering the message to test error
+# message = 11
 
-public = (e, n)
-private = (d, n)
+# sending the digital signature and original message to b 
+md2 = sha1_hash(message)
+print(md2)
+dig_sign_decrypted = rsa_decrypt(dig_sign,e,n)
+print(dig_sign_decrypted)
 
-message = 'hello there'
-md1 = md_generator(message)
-digital_signature = rsa_encryption(md1)
-print("Original Message Hash:", md1)
-print("Digital Signature:", digital_signature)
-
-# Now, recipient verifies the digital signature
-md2 = md_generator(message)
-decrypted_md = rsa_decryption(digital_signature)
-print("Received Message Hash:", md2)
-print("Decrypted Message Hash:", decrypted_md)
-
-if md2 == decrypted_md:
-    print("Digital Signature Verified! The message is authentic.")
+if dig_sign_decrypted == md2:
+    print('Message recieved successfully!')
 else:
-    print("Digital Signature Verification Failed! The message may have been tampered with.")
+    print('Message was tampered with')

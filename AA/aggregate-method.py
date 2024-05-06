@@ -1,7 +1,7 @@
 # Multipop stack amortized analysis using aggregate method 
 # Assuming the multipop operation where each multipop can remove at max n elements from the stack and every there can be n such oprations the worst case time complexity turns out to be O(n^2) which is not a very tough bound or and overestimate.
 # Aggregate method 
-# Since for every multipop(k) we need atleast k elements in the stack, hence we can multipop n*n times and the worst case can not be more that O(n) and T(n) making the amortized cost to be T(n)/n 
+# Since for every multipop(k) we need atleast k elements in the stack, hence we cannot multipop n*n times and the worst case can not be more that O(n) and T(n) making the amortized cost to be T(n)/n 
 
 def push(stack,n,cost):
     for i in range(n):

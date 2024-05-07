@@ -1,0 +1,11 @@
+2.1 aggregate 
+2.2 accounting
+2.3 potential
+3 hiring problem 
+4 quick sort
+5.1 rb tree insertion
+5.2 rb tree deletion 
+6 kd tree
+7.1 ford fulkerson
+7.2 Edmond karp
+8 graham scan

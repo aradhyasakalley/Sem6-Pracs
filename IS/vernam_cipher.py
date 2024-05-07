@@ -17,10 +17,27 @@ def vernam_cipher(plain_text,key):
     for char1,char2 in zip(plain_text,key):
        mapping_value1 = mapping[char1]
        mapping_value2 = mapping[char2]
-       xor_value = (mapping_value1 ^ mapping_value2)%26
+       xor_value = (mapping_value1 ^ mapping_value2)
+       if xor_value > 26:
+           xor_value -= 26
+       
        ciphered_text += chr(xor_value + 65)
     return ciphered_text 
 
+def vernam_decipher(plain_text,key):
+    ciphered_text = ''
+    for char1,char2 in zip(plain_text,key):
+       mapping_value1 = mapping[char1]
+       mapping_value2 = mapping[char2]
+       xor_value = (mapping_value1 ^ mapping_value2)
+       if xor_value > 26:
+           xor_value -= 26
+       
+       ciphered_text += chr(xor_value + 65)
+    return ciphered_text 
+
+
+print(2^18)
 plain_text = 'OAK'
 plain_text = plain_text.replace(' ','')
 print(plain_text)
@@ -29,5 +46,5 @@ key = key_padding(plain_text,key)
 print(key)
 ciphered_text = vernam_cipher(plain_text,key)
 print(ciphered_text)
-deciphered_text = vernam_cipher(ciphered_text,key)
+deciphered_text = vernam_decipher(ciphered_text,key)
 print(deciphered_text)

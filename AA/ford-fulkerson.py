@@ -18,7 +18,7 @@ def ford_fulkerson(possible_paths,graph):
             else:
                 graph[path[i]][path[i+1]] -= min_edge
         flow += min_edge
-    print(flow)
+    return flow
 
 # DFS approach to find all possible paths
 def dfs_paths(graph, start, goal, path=[]):
@@ -55,8 +55,17 @@ graph = {
 #     'C':{'T':5}
 # }
 
-source = 'S'
-target = 'T'
-possible_paths = dfs_paths(graph, source, target)
+graph4 = {
+    '1' : {'2' : 8, '3' : 10},
+    '2': {'4': 2,'5':7},
+    '3': {'2': 3,'5':12},
+    '4': {'6':10},
+    '5':{'4':4,'6':8}
+}
+
+source = '1'
+target = '6'
+possible_paths = dfs_paths(graph4, source, target)
 print("All possible paths from", source, "to", target, ":", possible_paths)
-ford_fulkerson(possible_paths,graph)
+max_flow = ford_fulkerson(possible_paths,graph4)
+print('Max flow is : ',max_flow)

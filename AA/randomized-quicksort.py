@@ -1,48 +1,63 @@
 import random
+swaps_randomized = 0
+swaps_regular = 0
 
-def get_partition_random(array, low, high):
-    pivot_index = random.randint(low, high)  
-    pivot = array[pivot_index]
-    swaps = 0
+# Regular partition functions just keeping track of randomized count
+# Written separately only to have diff count 
+def partition_random(arr,low,high):
+    global swaps_randomized
     i = low
-    for j in range(low, high + 1):
-        if j != pivot_index and array[j] <= pivot:
-            array[i], array[j] = array[j], array[i]
+    pivot = arr[high]
+    for j in range(low,high):
+        if arr[j] <= pivot:
+            swaps_randomized += 1
+            arr[i],arr[j] = arr[j],arr[i]
             i += 1
-            swaps += 1
-    return i - 1, swaps
+    swaps_randomized += 1
+    arr[i],arr[high] = arr[high],arr[i]
+    return i 
 
-def get_partition_leftmost(array, low, high):
-    pivot = array[low]  # Choose leftmost element as the pivot
-    swaps = 0
-    i = low + 1
-    for j in range(low + 1, high + 1):
-        if array[j] <= pivot:
-            array[i], array[j] = array[j], array[i]
+def partition_regular(arr,low,high):
+    global swaps_regular
+    i = low
+    pivot = arr[high]
+    for j in range(low,high):
+        if arr[j] <= pivot:
+            swaps_regular += 1
+            arr[i],arr[j] = arr[j],arr[i]
             i += 1
-            swaps += 1
-    array[low], array[i - 1] = array[i - 1], array[low]
-    swaps += 1
-    return i - 1, swaps
+    swaps_regular += 1
+    arr[i],arr[high] = arr[high],arr[i]
+    return i 
 
-def quicksort_random(array, low, high):
+
+def partition_randomizer(arr,low,high):
+    r = random.randint(low,high)
+    arr[r],arr[high] = arr[high],arr[r]
+    return partition_random(arr,low,high)
+
+# Same quicksort main functions except the random one calls the randomizer first while the regular one calls the partition function direct;y
+def quicksort_random(arr,low,high):
     if low < high:
-        partition, swaps = get_partition_random(array, low, high)
-        quicksort_random(array, low, partition - 1)
-        quicksort_random(array, partition + 1, high)
-        return swaps
-
-def quicksort_leftmost(array, low, high):
+        p = partition_randomizer(arr,low,high)
+        quicksort_random(arr,low,p-1)
+        quicksort_random(arr,p+1,high)
+        
+def quicksort_regular(arr,low,high):
     if low < high:
-        partition, swaps = get_partition_leftmost(array, low, high)
-        quicksort_leftmost(array, low, partition - 1)
-        quicksort_leftmost(array, partition + 1, high)
-        return swaps
+        p = partition_regular(arr,low,high)
+        quicksort_regular(arr,low,p-1)
+        quicksort_regular(arr,p+1,high)
 
-array = [4, 1, 3, 5, 6]
-array_copy = array[:]  
-swaps_random = quicksort_random(array, 0, len(array) - 1)
-swaps_leftmost = quicksort_leftmost(array_copy, 0, len(array_copy) - 1)
 
-print("Number of swaps with random pivot:", swaps_random)
-print("Number of swaps with leftmost pivot:", swaps_leftmost)
+arr = [random.randint(1,100) for _ in range(100)]
+
+print(arr)
+
+quicksort_random(arr,0,len(arr)-1)
+# print(arr,swaps_randomized)
+
+quicksort_regular(arr,0,len(arr)-1)
+# print(arr,swaps_regular)
+
+print(f'Swaps using random approach are {swaps_randomized} while using regular approach is {swaps_regular} ')

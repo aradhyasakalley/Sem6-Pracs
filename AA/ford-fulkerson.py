@@ -1,24 +1,27 @@
 
-def ford_fulkerson(possible_paths,graph):
+def ford_fulkerson(possible_paths, graph):
     flow = 0
+    # Sort possible paths based on the minimum edge value
+    possible_paths.sort(key=lambda path: min(graph[path[i]][path[i + 1]] for i in range(len(path) - 1)))
+    
     # Traversing each possible path one by one
     for path in possible_paths:
         min_edge = float('inf')
-        # Traversing each edge of the path
         # Finding the augmenting (minimum edge)
-        for i in range(len(path)-1):
-            edge_length = graph[path[i]][path[i+1]]
-            min_edge = min(min_edge,edge_length)
+        for i in range(len(path) - 1):
+            edge_length = graph[path[i]][path[i + 1]]
+            min_edge = min(min_edge, edge_length)
         # Updating the capacities and handling bottlenecks (full flow)
-        for i in range(len(path)-1):
+        for i in range(len(path) - 1):
             # When edge in full flow
-            if graph[path[i]][path[i+1]] == 0:
+            if graph[path[i]][path[i + 1]] == 0:
                 print(f'Path {path} not possible')
                 break
             else:
-                graph[path[i]][path[i+1]] -= min_edge
+                graph[path[i]][path[i + 1]] -= min_edge
         flow += min_edge
     return flow
+
 
 # DFS approach to find all possible paths
 def dfs_paths(graph, start, goal, path=[]):
@@ -55,17 +58,18 @@ graph = {
 #     'C':{'T':5}
 # }
 
-graph4 = {
-    '1' : {'2' : 8, '3' : 10},
-    '2': {'4': 2,'5':7},
-    '3': {'2': 3,'5':12},
-    '4': {'6':10},
-    '5':{'4':4,'6':8}
-}
+# graph4 = {
+#     '1' : {'2' : 8, '3' : 10},
+#     '2': {'4': 2,'5':7},
+#     '3': {'2': 3,'5':12},
+#     '4': {'6':10},
+#     '5':{'4':4,'6':8}
+# }
 
-source = '1'
-target = '6'
-possible_paths = dfs_paths(graph4, source, target)
+source = 'S'
+target = 'T'
+possible_paths = dfs_paths(graph, source, target)
 print("All possible paths from", source, "to", target, ":", possible_paths)
-max_flow = ford_fulkerson(possible_paths,graph4)
+
+max_flow = ford_fulkerson(possible_paths,graph)
 print('Max flow is : ',max_flow)

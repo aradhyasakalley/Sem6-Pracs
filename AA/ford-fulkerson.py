@@ -1,4 +1,3 @@
-
 def ford_fulkerson(possible_paths, graph):
     flow = 0
     # Sort possible paths based on the minimum edge value
@@ -38,11 +37,11 @@ def dfs_paths(graph, start, goal, path=[]):
                 paths.append(new_path)
     return paths
 
-graph = {
-    'S' : {'A' : 3, 'B' : 2},
-    'A': {'B': 5, 'T' : 2 },
-    'B': {'T': 3}
-}
+# graph = {
+#     'S' : {'A' : 3, 'B' : 2},
+#     'A': {'B': 5, 'T' : 2 },
+#     'B': {'T': 3}
+# }
 
 # graph2 = {
 #     'S' : {'A' : 100, 'B' : 100},
@@ -50,6 +49,8 @@ graph = {
 #     'B': {'C': 3},
 #     'C':{'T':1}
 # }
+
+
 # graph3 = {
 #     'S' : {'A' : 9, 'D' : 3},
 #     'A': {'B': 9},
@@ -58,18 +59,18 @@ graph = {
 #     'C':{'T':5}
 # }
 
-# graph4 = {
-#     '1' : {'2' : 8, '3' : 10},
-#     '2': {'4': 2,'5':7},
-#     '3': {'2': 3,'5':12},
-#     '4': {'6':10},
-#     '5':{'4':4,'6':8}
-# }
+graph4 = {
+    '1' : {'2' : 8, '3' : 10},
+    '2': {'4': 2,'5':7},
+    '3': {'2': 3,'5':12},
+    '4': {'6':10},
+    '5':{'4':4,'6':8}
+}
 
-source = 'S'
-target = 'T'
-possible_paths = dfs_paths(graph, source, target)
+source = '1'
+target = '6'
+possible_paths = dfs_paths(graph4, source, target)
 print("All possible paths from", source, "to", target, ":", possible_paths)
 
-max_flow = ford_fulkerson(possible_paths,graph)
+max_flow = ford_fulkerson(possible_paths,graph4)
 print('Max flow is : ',max_flow)

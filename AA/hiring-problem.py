@@ -9,8 +9,10 @@ def hiring_problem(candidates):
     days_worked = 0
     candidates_interviewed = 0
     cost = 0  
+    hirings = 0
     for candidate in candidates:
         if candidate > current_best:
+            hirings += 1
             current_best = candidate
             hiring_new_cost = interview_cost + hiring_cost
             firing_current_cost = days_worked * pay_per_day
@@ -20,7 +22,7 @@ def hiring_problem(candidates):
             cost += interview_cost
             days_worked += 1
         candidates_interviewed += 1
-    return cost, candidates_interviewed
+    return cost, candidates_interviewed,hirings
 
 
 # Worst Case
@@ -30,8 +32,9 @@ candidates = [1,2,3,4,5,6,7,8,9,10]
 # Average Case
 # candidates = random.sample(range(1, 11), 10)
 print(candidates)
-cost, candidates_interviewed = hiring_problem(candidates)
+cost, candidates_interviewed,hirings = hiring_problem(candidates)
 print("Total cost:", cost)
 print("Candidates interviewed:", candidates_interviewed)
-formula_cost = 10*5 + candidates_interviewed*10
-print(formula_cost)
+formula_cost = 10*5 + hirings*10
+print(hirings)
+print('Formula cost : ',formula_cost)

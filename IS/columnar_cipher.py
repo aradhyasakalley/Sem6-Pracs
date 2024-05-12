@@ -2,12 +2,21 @@ mapping = {}
 for i in range(26):
     mapping[chr(65+i)] = i
 
+# Generates a sequence based on the mapping of char in key
+def sequence_generator(key):
+    sequence = []
+    for char in key:
+        sequence.append(mapping[char])
+    return sequence
+
+# Basically returns the column index to pick next
 def column_choice(sequence):
-    min_element = min(sequence)
-    min_index = sequence.index(min_element)
+    min_value = min(sequence)
+    min_index = sequence.index(min_value)
     sequence[min_index] = 100
     return min_index
 
+# Appending columnwise values based on sequence
 def columnar_cipher(matrix, sequence, n):
     ciphered_text = ''
     if n > 0:
@@ -19,29 +28,27 @@ def columnar_cipher(matrix, sequence, n):
     else:
         return ''
 
-def sequence_generator(key):
-    sequence = []
-    for char in key:
-        sequence.append(mapping[char])
-    # sequence.sort()
-    return sequence
-
-def columnar_transposition_matrix(plain_text, n):
+# Generating the transposition matrix nxn
+def columnar_transposition_matrix(plain_text,n):
     matrix = []
     for i in range(n):
         row = []
         for j in range(n):
-            index = i * n + j
+            index = i*n + j
             if index < len(plain_text):
                 row.append(plain_text[index])
             else:
-                row.append('X')  # Add padding character if the index goes out of range
+                row.append('X')
         matrix.append(row)
     return matrix
 
-plain_text = 'Aradhya Sakalley'
+
+plain_text = 'GEEKS FOR GEEKS'
 key = 'HACK'
 n = len(key)
-matrix = columnar_transposition_matrix(plain_text, n)
+matrix = columnar_transposition_matrix(plain_text,n)
+print(matrix)
 sequence = sequence_generator(key)
-print("Ciphered text:", columnar_cipher(matrix, sequence, n).replace(' ',''))
+print(sequence)
+ciphered_text = columnar_cipher(matrix,sequence,n)
+print(ciphered_text.replace(' ',''))

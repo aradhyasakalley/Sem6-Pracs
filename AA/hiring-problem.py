@@ -26,9 +26,9 @@ def hiring_problem(candidates):
 
 
 # Worst Case
-candidates = [1,2,3,4,5,6,7,8,9,10]
+# candidates = [1,2,3,4,5,6,7,8,9,10]
 # Best Case
-# candidates = [10,9,8,7,6,5,4,3,2,1]
+candidates = [9,10,8,7,6,5,4,3,2,1]
 # Average Case
 # candidates = random.sample(range(1, 11), 10)
 print(candidates)

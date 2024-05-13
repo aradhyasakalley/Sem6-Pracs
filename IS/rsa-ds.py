@@ -11,6 +11,7 @@ def private_key(e,phi):
         else:
             d += 1
     return d
+
 def public_keyy(phi):
     e = 2
     while e < phi:
@@ -22,6 +23,7 @@ def public_keyy(phi):
 
 def rsa_encrypt(message,e,n):
     return pow(message,e)%n
+
 def rsa_decrypt(message,d,n):
     return pow(message,d)%n
 

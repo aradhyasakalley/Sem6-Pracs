@@ -10,7 +10,7 @@ def private_key(e,phi):
             d += 1
     return d
 
-def public_keyy(phi):
+def public_key(phi):
     e = 2
     while e < phi:
         if math.gcd(e,phi) == 1:
@@ -29,7 +29,7 @@ p,q = 1013,1019
 message = 44
 n = p*q
 phi = (p-1)*(q-1)
-e = public_keyy(phi)
+e = public_key(phi)
 d = private_key(e,phi)
 ciphered_text = rsa_encrypt(message,e,n)
 deciphered_text = rsa_decrypt(ciphered_text,d,n)

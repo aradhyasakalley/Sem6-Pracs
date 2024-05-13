@@ -43,7 +43,7 @@ def columnar_transposition_matrix(plain_text,n):
     return matrix
 
 
-plain_text = 'GEEKS FOR GEEKS'
+plain_text = 'ARADHYA'
 key = 'HACK'
 n = len(key)
 matrix = columnar_transposition_matrix(plain_text,n)

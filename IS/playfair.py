@@ -50,8 +50,6 @@ def playfair_matrix(key):
                     break
             else:
                 break
-
-    
     return matrix
   
 # Finding position of char in matrix  
@@ -68,18 +66,34 @@ def playfair_encryption(diagraphs, matrix):
         x1, y1 = find_position(matrix, diagraph[0])
         x2, y2 = find_position(matrix, diagraph[1])
 
-        if x1 == x2:  
-            diagraph[0] = matrix[x1][(y1 + 1) % 5]
-            diagraph[1] = matrix[x2][(y2 + 1) % 5]
-        elif y1 == y2:  
-            diagraph[0] = matrix[(x1 + 1) % 5][y1]
-            diagraph[1] = matrix[(x2 + 1) % 5][y2]
-        else:  
+        if x1 == x2:
+            diagraph[0] = matrix[x1][(y1+1)%5]
+            diagraph[1] = matrix[x1][(y2+1)%5]
+        elif y1 == y2:
+            diagraph[0] = matrix[(x1+1)%5][y1]
+            diagraph[1] = matrix[(x2+1)%5][y1]
+        else:
             diagraph[0] = matrix[x1][y2]
             diagraph[1] = matrix[x2][y1]
 
     return diagraphs
 
+def playfair_decryption(diagraphs, matrix):
+    for diagraph in diagraphs:
+        x1, y1 = find_position(matrix, diagraph[0])
+        x2, y2 = find_position(matrix, diagraph[1])
+
+        if x1 == x2:
+            diagraph[0] = matrix[x1][(y1-1)%5]
+            diagraph[1] = matrix[x1][(y2-1)%5]
+        elif y1 == y2:
+            diagraph[0] = matrix[(x1-1)%5][y1]
+            diagraph[1] = matrix[(x2-1)%5][y1]
+        else:
+            diagraph[0] = matrix[x1][y2]
+            diagraph[1] = matrix[x2][y1]
+
+    return diagraphs
 
 plain_text = 'INSTRUMENTSZ'
 print('Plaintext : ',plain_text)
@@ -97,5 +111,12 @@ encrypted_text = ''
 for diagraph in diagraphs_encrypted:
     encrypted_text += diagraph[0]
     encrypted_text += diagraph[1]
+    
+diagraphs_encrypted = playfair_decryption(diagraphs_encrypted, matrix)
+print(diagraphs_encrypted)
+decrypted_text = ''
 
-print('Encrypted text : ',encrypted_text)
+for diagraph in diagraphs_encrypted:
+    decrypted_text += diagraph[0]
+    decrypted_text += diagraph[1]
+print('Decrypted text : ',decrypted_text)

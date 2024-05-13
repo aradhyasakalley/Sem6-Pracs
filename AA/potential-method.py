@@ -1,4 +1,5 @@
 # In potential method we look at the state before and after and compute the potential change between the current and previous states, based on the potential function given
+
 def potential_change(final,initial):
     return (2*final-initial)
 

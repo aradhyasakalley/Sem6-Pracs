@@ -37,11 +37,11 @@ def dfs_paths(graph, start, goal, path=[]):
                 paths.append(new_path)
     return paths
 
-# graph = {
-#     'S' : {'A' : 3, 'B' : 2},
-#     'A': {'B': 5, 'T' : 2 },
-#     'B': {'T': 3}
-# }
+graph = {
+    'S' : {'A' : 3, 'B' : 2},
+    'A': {'B': 5, 'T' : 2 },
+    'B': {'T': 3}
+}
 
 # graph2 = {
 #     'S' : {'A' : 100, 'B' : 100},

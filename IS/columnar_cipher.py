@@ -35,8 +35,7 @@ def columnar_cipher(matrix,sequence,n):
     if n > 0:
         min_index = column_choice(sequence)
         for i in range(len(matrix)):
-            if matrix[i][min_index] != 'X':
-                ciphered_text += matrix[i][min_index]
+            ciphered_text += matrix[i][min_index]
         return ciphered_text + columnar_cipher(matrix,sequence,n-1)
     else:
         return ''

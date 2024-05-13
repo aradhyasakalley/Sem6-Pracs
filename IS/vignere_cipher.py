@@ -1,8 +1,7 @@
 mapping = {}
 for i in range(26):
-    mapping[chr(65 + i)] = i  # Uppercase letters
-    mapping[chr(97 + i)] = i  # Lowercase letters
-
+    mapping[chr(65 + i)] = i 
+    mapping[chr(97 + i)] = i  
 
 print(mapping)
 
@@ -33,7 +32,7 @@ def vignere_decipher(plain_text,key):
     return deciphered_text
         
 
-plain_text = 'ARADHYA SAKALLEY'
+plain_text = 'ARaDHYA SAKALLEY'
 plain_text = plain_text.replace(' ','')
 print(plain_text)
 key = 'BEST'

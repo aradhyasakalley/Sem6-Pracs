@@ -61,15 +61,15 @@ def columnar_decipher(sequence, ciphered_text, n):
     return deciphered_text
             
     
-plain_text = 'BBL DRIZZY'
+plain_text = 'ARADHYA IS GOOD'
 key = 'HACK'
 n = len(key)
 sequence = sequence_gen(key)
-matrix = columnar_matrix(n,plain_text)
+matrix = columnar_matrix(sequence,n,plain_text)
 print(matrix)
 ciphered_text = columnar_cipher(matrix,sequence,n)
 print(ciphered_text)
 print(sequence)
 sequence = sequence_gen(key)
 deciphered_text = columnar_decipher(sequence, ciphered_text, n)
-print(deciphered_text.replace('@',''))
+print(deciphered_text)

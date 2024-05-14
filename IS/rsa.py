@@ -1,6 +1,5 @@
 import math 
 
-
 def private_key(e,phi):
     d = 2
     while d < phi:
@@ -29,10 +28,13 @@ p,q = 1013,1019
 message = 44
 n = p*q
 phi = (p-1)*(q-1)
+
 e = public_key(phi)
 d = private_key(e,phi)
+
 ciphered_text = rsa_encrypt(message,e,n)
 deciphered_text = rsa_decrypt(ciphered_text,d,n)
-print(message)
-print(ciphered_text)
-print(deciphered_text)
+
+print('Original message: ',message)
+print('Ciphered text: ',ciphered_text)
+print('Deciphered text: ',deciphered_text)

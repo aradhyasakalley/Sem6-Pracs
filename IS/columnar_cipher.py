@@ -3,14 +3,14 @@ for i in range(26):
     mapping[chr(65+i)] = i
 print(mapping)
 
-
+# Generating sequence of picking column to add
 def sequence_gen(key):
     sequence = []
     for char in key:
         sequence.append(mapping[char])
     return sequence
 
-
+# Creating the columnar matrix 
 def columnar_matrix(n,plain_text):
     matrix = []
     for i in range(n):
@@ -23,13 +23,15 @@ def columnar_matrix(n,plain_text):
                 row.append('@')
         matrix.append(row)
     return matrix        
-        
+
+# Picking the column to start using as per teh sequence
 def column_choice(sequence):
     min_value = min(sequence)
     min_index = sequence.index(min_value)
     sequence[min_index] = 100
     return min_index
 
+# Recursively getting the ciphered text
 def columnar_cipher(matrix,sequence,n):    
     ciphered_text = ''
     if n > 0:
@@ -40,13 +42,13 @@ def columnar_cipher(matrix,sequence,n):
     else:
         return ''
 
+# Decipher (reading columns based on the same sequence)
 def columnar_decipher(sequence, ciphered_text, n):
     matrix = [['' for _ in range(n)] for _ in range(n)]
     text_index = 0
     deciphered_text = ''
     while n > 0:
         min_index = column_choice(sequence)
-        print(min_index)
         for i in range(len(matrix)):
             if text_index < len(ciphered_text):
                 matrix[i][min_index] = ciphered_text[text_index]
@@ -65,10 +67,10 @@ key = 'HACK'
 n = len(key)
 sequence = sequence_gen(key)
 matrix = columnar_matrix(n,plain_text)
-print(matrix)
+print('Columnar matrix: ',matrix)
 ciphered_text = columnar_cipher(matrix,sequence,n)
-print(ciphered_text)
-print(sequence)
+print('Ciphered text:',ciphered_text)
+print('Sequence : ',sequence)
 sequence = sequence_gen(key)
 deciphered_text = columnar_decipher(sequence, ciphered_text, n)
-print(deciphered_text.replace('@',''))
+print('Deciphered text: ',deciphered_text.replace('@',''))

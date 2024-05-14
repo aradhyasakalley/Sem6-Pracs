@@ -1,33 +1,20 @@
-mapping = {}
-for i in range(26):
-    mapping[chr(65+i)] = i;
-
-
-print(mapping) 
-def key_padding(plain_text,key):
-    if len(key) < len(plain_text):
-        i = 0
-        while len(key) != len(plain_text):
-            key += key[i]
-            i += 1
-    return key
+# Function of cipher and decipher is the same
+# In Vernam cipher both the key and plaintext have to be same length (so no padding needed)
 
 def vernam_cipher(plain_text,key):
     ciphered_text = ''
-    for char1,char2 in zip(plain_text,key):
-       mapping_value1 = mapping[char1]
-       mapping_value2 = mapping[char2]
-       xor_value = (mapping_value1 ^ mapping_value2)%26
-       ciphered_text += chr(xor_value + 65)
-    return ciphered_text 
+    for i in range(len(plain_text)):
+        xor_value = chr(ord(plain_text[i]) ^ ord(key[i]))
+        ciphered_text += xor_value
+    return ciphered_text
+    
 
-plain_text = 'ARADHYA'
+plain_text = 'Thirteen'
 plain_text = plain_text.replace(' ','')
-print(plain_text)
-key = 'AB'
-key = key_padding(plain_text,key)
-print(key)
+print('Plain text is : ',plain_text)
+key = 'Security'
+print('The key is : ',key)
 ciphered_text = vernam_cipher(plain_text,key)
-print(ciphered_text)
+print('Ciphered text is: ',ciphered_text)
 deciphered_text = vernam_cipher(ciphered_text,key)
-print(deciphered_text)
+print('Deciphered text: ',deciphered_text)

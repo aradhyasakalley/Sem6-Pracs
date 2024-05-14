@@ -1,4 +1,4 @@
-# Splitting the plaintext into digraphs
+# Splitting the plaintext into digraphs 
 def get_diagraphs(plain_text):
     diagraphs = []
     i = 0
@@ -34,13 +34,15 @@ def playfair_matrix(key):
     key = key.upper().replace('J', 'I') 
     matrix = [['' for _ in range(5)] for _ in range(5)]  
     
+    # adding the key to the matrix
     key_index = 0
     for i in range(5):
         for j in range(5):
             if key_index < len(key):
                 matrix[i][j] = key[key_index]
                 key_index += 1
-    
+                
+    # adding the rest of alphabets in order 
     alphabet = 'ABCDEFGHIKLMNOPQRSTUVWXYZ' 
     for letter in alphabet:
         if letter not in key:
@@ -60,7 +62,7 @@ def find_position(matrix,char):
                 return (i,j)
 
 
-# Encrypting based on the 3 rules
+# Encrypting based on the 3 rules (same row, same column, diff row and column)
 def playfair_encryption(diagraphs, matrix):
     for diagraph in diagraphs:
         x1, y1 = find_position(matrix, diagraph[0])
@@ -78,6 +80,7 @@ def playfair_encryption(diagraphs, matrix):
 
     return diagraphs
 
+# Decryption using the same rules (simply the opposite to encryption)
 def playfair_decryption(diagraphs, matrix):
     for diagraph in diagraphs:
         x1, y1 = find_position(matrix, diagraph[0])
@@ -95,28 +98,29 @@ def playfair_decryption(diagraphs, matrix):
 
     return diagraphs
 
+
 plain_text = 'INSTRUMENTSZ'
 print('Plaintext : ',plain_text)
 key = 'MONARCHY'
 diagraphs = get_diagraphs(plain_text)
-print(diagraphs)
+print('Diagraphs generated: ',diagraphs)
 
 u_key = unique_key(key)
 matrix = playfair_matrix(u_key)
 
 diagraphs_encrypted = playfair_encryption(diagraphs, matrix)
-print(diagraphs_encrypted)
+print('Encrypted Diagraphs: ',diagraphs_encrypted)
 
 encrypted_text = ''
 for diagraph in diagraphs_encrypted:
     encrypted_text += diagraph[0]
     encrypted_text += diagraph[1]
     
-diagraphs_encrypted = playfair_decryption(diagraphs_encrypted, matrix)
-print(diagraphs_encrypted)
+diagraphs_decrypted = playfair_decryption(diagraphs_encrypted, matrix)
+print('Diagraphs Decryrpted: ',diagraphs_decrypted)
 decrypted_text = ''
 
-for diagraph in diagraphs_encrypted:
+for diagraph in diagraphs_decrypted:
     decrypted_text += diagraph[0]
     decrypted_text += diagraph[1]
 print('Decrypted text : ',decrypted_text)
